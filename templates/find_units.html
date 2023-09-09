@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Find Units</title>
+</head>
+<body>
+    {% include 'top.html' %}
+    <div id="content">
+        <div id="container">
+            <h1 class="page-title">Find units the staff teaches</h1>
+            <form class="pure-form pure-form-stacked login" method="POST" action="{{ url_for('find_units') }}">
+                <input type="text" name="first_name" placeholder="first name" required>
+                <input type="text" name="last_name" placeholder="last name (optional)" >
+                <input class="pure-button pure-button-primary" type="submit">
+            </form>
+
+            {% if units %}
+                <h1> </h1>
+                <h2> Result </h2>
+                <table class="pure-table">
+                    <thead>
+                        <tr><th>uoscode</th><th>uosname</th></tr>
+                    </thead>
+                    <tbody>
+                        {% for unit in units %}
+                            <tr>
+                                <td> {{unit[0]}}</td>
+                                <td> {{unit[1]}} </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% endif %}
+
+        </div>
+    </div>
+</body>
+</html>

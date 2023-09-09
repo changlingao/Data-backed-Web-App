@@ -1,0 +1,41 @@
+I am in charge of pages about academicstaff.
+
+1. One page should list all the academicstaff (showing the id, name, department, address [but not the password or salary!]).
+        SELECT id, name, deptid, address
+        FROM unidb.academicstaff
+
+2. One page should allow the user to search for staff in a particular department.
+        SELECT id, name, deptid
+        FROM unidb.academicstaff
+        WHERE LOWER(name) LIKE %s
+        AND deptid = %s
+
+3. One page should produce a report showing how many staff there are, in each department.
+        SELECT deptid, COUNT(id)
+        FROM unidb.academicstaff
+        GROUP BY deptid
+
+4. One page should allow the user to add a new academicstaff member to the dataset.
+        INSERT INTO unidb.academicstaff(id, name, deptid, password, address, salary)
+        VALUES (%s, %s, %s, %s, %s, %s)
+        RETURNING *;
+
+5. Extension page for finding units the staff teaches
+        SELECT DISTINCT S.uoscode, S.uosname
+        FROM unidb.academicstaff A JOIN unidb.uosoffering U ON(A.id = U.instructorid)
+            JOIN unidb.unitofstudy S ON(U.uoscode = S.uoscode)
+        WHERE LOWER(name) LIKE %s
+
+6. Extension table: assessment
+        DROP TABLE IF EXISTS unidb.assessment;
+        CREATE TABLE unidb.assessment (
+            uoscode CHAR(8),
+            time CHAR(7),
+            number INTEGER,
+            type VARCHAR(20),
+            description VARCHAR(150),
+            weight INTEGER,
+            due VARCHAR(20),
+            PRIMARY KEY(uoscode, time, number)
+        );
+

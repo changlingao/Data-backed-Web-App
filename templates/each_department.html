@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Each Department</title>
+</head>
+<body>
+    {% include 'top.html' %}
+    <div id="content">
+        <div id="container">
+            <h1 class="page-title">The Number of Staff In Each Department</h1>
+            <table class="pure-table">
+                <thead>
+                    <tr><th>department</th><th>count</th></tr>
+                </thead>
+                <tbody>
+                    {% for r in result %}
+                        <tr>
+                            <td> {{r[0]}}</td>
+                            <td> {{r[1]}} </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>All Staff</title>
+</head>
+<body>
+    {% include 'top.html' %}
+    <div id="content">
+        <div id="container">
+            <h1 class="page-title">All The Academic Staff</h1>
+            <table class="pure-table">
+                <thead>
+                    <tr><th>id</th><th>name</th><th>department</th><th>address</th></tr>
+                </thead>
+                <tbody>
+                    {% for s in staff %}
+                        <tr>
+                            <td> {{s[0]}}</td>
+                            <td> {{s[1]}} </td>
+                            <td> {{s[2]}} </td>
+                            <td> {{s[3]}} </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

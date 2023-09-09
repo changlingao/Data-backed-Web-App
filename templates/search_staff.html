@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Search</title>
+</head>
+<body>
+    {% include 'top.html' %}
+    <div id="content">
+        <div id="container">
+            <h1 class="page-title">Search For Staff</h1>
+            <form class="pure-form pure-form-stacked login" method="POST" action="{{ url_for('search_staff') }}">
+                <input type="text" name="first_name" placeholder="first name" required>
+                <input type="text" name="last_name" placeholder="last name (optional)" >
+{#                <input type="text" name="department" placeholder="department" required>#}
+                <label style="all: revert; " for="department">Choose Department:</label>
+                  <select style="all: revert; " name="department" id="department">
+                    {% for d in departments %}
+                        <option value={{d[0]}}>{{d[0]}}</option>
+                    {% endfor %}
+                  </select>
+                <h1> </h1>
+                <input class="pure-button pure-button-primary" type="submit">
+            </form>
+            {% if staff %}
+                <h1> </h1>
+                <h2> Result </h2>
+                <table class="pure-table">
+                    <thead>
+                        <tr><th>id</th><th>name</th><th>department</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td> {{staff[0]}} </td>
+                            <td> {{staff[1]}} </td>
+                            <td> {{staff[2]}} </td>
+                        </tr>
+                    </tbody>
+                </table>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

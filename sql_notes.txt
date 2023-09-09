@@ -1,0 +1,27 @@
+
+TablePlus: grant access to users in postgresql
+Grant CONNECT to database
+GRANT CONNECT ON DATABASE database_name TO username;
+Username: y22_xxx
+Grant USAGE on schema
+GRANT USAGE ON SCHEMA schema_name TO username;
+Grant on all tables for DML statements: SELECT, INSERT, UPDATE, DELETE
+GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA schema_name TO username;
+
+
+-- GRANT CONNECT ON DATABASE y22s2i2120_yuduxxxx TO y22s2i2120_cgao8520;
+-- GRANT USAGE ON SCHEMA unidb TO y22s2i2120_cgao8520;
+-- GRANT SELECT, INSERT ON ALL TABLES IN SCHEMA schema_name TO username;
+
+GRANT SELECT, INSERT ON academicstaff IN SCHEMA unidb TO y22s2i2120_cgao8520;
+
+CREATE VIEW StaffUnits AS 
+	SELECT DISTINCT S.uoscode, S.uosname, A.name
+	FROM unidb.academicstaff A JOIN unidb.uosoffering U ON(A.id = U.instructorid)
+	JOIN unidb.unitofstudy S ON(U.uoscode = S.uoscode);
+GRANT SELECT ON StaffUnits TO y22s2i2120_cgao8520;
+
+-- find units the staff teaches
+SELECT DISTINCT S.uoscode, S.uosname
+FROM StaffUnits
+WHERE LOWER(name) LIKE %s
